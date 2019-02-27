@@ -6,6 +6,8 @@ RUN docker-php-ext-install mbstring pdo_pgsql curl json intl gd xml zip bz2 opca
 RUN pecl install mcrypt-1.0.2 && docker-php-ext-enable mcrypt
 # Install & enable Xdebug for code coverage reports
 RUN pecl install xdebug && docker-php-ext-enable xdebug
+# Install unzip that will be used by composer
+RUN apt-get update -yqq && apt-get install -yqq zip
 # Increase PHP memory
 COPY etc/php.ini /usr/local/etc/php/php.ini
 # Install composer
