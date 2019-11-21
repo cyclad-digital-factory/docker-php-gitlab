@@ -12,3 +12,14 @@ RUN apt-get update -yqq && apt-get install -yqq zip
 COPY etc/php.ini /usr/local/etc/php/php.ini
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php && chmod a+x composer.phar && mv composer.phar /usr/local/bin/composer
+# Install yarn
+RUN apt-get update && \
+    apt-get install gnupg apt-transport-https -y -qq && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && \
+    apt-get install yarn -y -qq
+# Install nodejs and npm
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+    apt-get update && \
+    apt-get install nodejs -y -qq
